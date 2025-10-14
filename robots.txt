@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://RichSomeday222.github.io/sitemap.xml
