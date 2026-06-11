@@ -74,17 +74,28 @@ const Portfolio = () => {
     ['News', '#news'],
     ['Honors & Awards', '#awards'],
     ['Teaching', '#teaching'],
-    ['Academic Services', '#academic-services'],
     ['Misc', '#miscellaneous'],
   ];
 
   const researchExp = [
     {
+      period: 'May. 2026 – Present',
+      company: 'NEU HAI with CMU HCII',
+      link: 'https://hailab.io/',
+      role: 'Research Affiliate for one project',
+      location: 'Remote',
+      supervisors: [
+        { name: 'Prof. Sherry Wu', link: 'https://www.cs.cmu.edu/~sherryw/group.html' },
+        { name: 'Prof. Dakuo Wang', link: 'https://www.dakuowang.com/' },
+        { name: 'Yuxuan Lu', link: 'https://yuxuan.lu/' }
+      ],
+    },
+    {
       period: 'Mar. 2026 – Present',
       company: 'MIT GOV Lab',
       link: 'https://mitgovlab.org/about?category=research-affiliates',
       role: 'Research Affiliate',
-      location: 'Massachusetts Institute of Technology',
+      location: 'Remote',
       supervisors: [
         { name: 'Prof. Jiaxin Pei', link: 'https://jiaxin-pei.github.io/' },
         { name: 'Lula Chen', link: 'https://mitgovlab.org/people/nuole-lula-chen/' },
@@ -95,12 +106,12 @@ const Portfolio = () => {
       company: 'Stanford HAI',
       link: 'https://hai.stanford.edu/',
       role: 'Research Intern',
-      location: 'Stanford University, Stanford, CA, U.S.',
+      location: 'Remote',
       supervisor: 'Prof. Jiaxin Pei',
       supervisorLink: 'https://jiaxin-pei.github.io/',
     },
     {
-      period: 'May. 2025 – Present',
+      period: 'May. 2025 – Jan. 2026',
       company: 'Minnesota NLP Group',
       link: 'https://minnesotanlp.github.io/',
       role: 'Research Assistant',
@@ -109,7 +120,7 @@ const Portfolio = () => {
       supervisorLink: 'https://dykang.github.io/',
     },
     {
-      period: 'Oct. 2024 – Present',
+      period: 'Oct. 2024 – May. 2026',
       company: 'Visual Intelligence Lab',
       link: 'https://qianwen.info/pages/lab_members/',
       role: 'Research Assistant',
@@ -224,10 +235,7 @@ const Portfolio = () => {
     },
   ];
 
-  const academicServices = [
-    // Add reviewer / volunteer roles here
-    '(To be updated)',
-  ];
+  
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -318,7 +326,7 @@ const Portfolio = () => {
           <SectionHeading icon={User} title="About" />
           <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 text-sm">
             <p>
-              Hi, I'm Yuxin Chen (陈雨欣) — a Computer Science graduate from the{' '}
+              Hi, I'm Yuxin Chen — a Computer Science graduate from the{' '}
               <a href="https://cse.umn.edu/cs" target="_blank" rel="noopener noreferrer" className="text-blue-700 dark:text-blue-400 hover:underline">
                 University of Minnesota, Twin Cities
               </a>, and an incoming M.S. student in Computer Science at{' '}
@@ -348,14 +356,17 @@ const Portfolio = () => {
               </a>.
             </p>
             <p>
-              My research interests span Natural Language Processing (NLP), Human-Computer Interaction (HCI), and Human-AI Interaction (HAI). I am interested in:
+              My research focuses on LLM System, NLP and human-AI interaction, with the goal of making LLM-based systems both capable and legible to the people who use them. I am particularly interested in:
             </p>
             <ul className="list-disc ml-6 space-y-1">
-              <li><strong>LLM Reasoning &amp; Human-AI Collaboration</strong> — designing benchmarks and frameworks to understand how humans and AI work together.</li>
-              <li><strong>Visualization for AI</strong> — building interactive tools that make complex AI processes explainable and transparent.</li>
-              <li><strong>Trustworthy AI</strong> — exploring how to balance automation with human judgment to improve reliability and trust.</li>
+              <li><strong>Reliable LLM agents and applications</strong> — building agentic systems that reason, act, and use tools reliably in real-world applications.</li>
+              <li><strong>Evaluation & Reliability of LLM Systems</strong> — designing evaluation frameworks that make LLM behavior measurable and dependable.</li>
+              <li><strong>Human-AI Interaction & Visualization</strong> —  understanding how humans collaborate with AI and building interactive tools that let users inspect how models work.</li>
             </ul>
-          </div>
+            <p>
+              I received offers from UT Austin MSCS, UCLA MSCS, GaTech MSCS, UMD MSCS, UNC MSCS, and UIUC MCS. I will be sharing my graduate school application experience and tips here.
+            </p>
+          </div>  
         </section>
 
         {/* Education */}
@@ -373,9 +384,16 @@ const Portfolio = () => {
               <tr style={{ height: 10 }}><td /></tr>
               <tr>
                 <td className="py-2 pr-4 align-top">
-                  <div><strong>B.S.</strong> &nbsp;&nbsp; Aug. 2021 – May 2025</div>
+                  <div><strong>B.S.</strong> &nbsp;&nbsp; Sep. 2023 – May 2025</div>
                   <div className="pl-14"><strong>University of Minnesota, Twin Cities</strong>, Minneapolis, MN, U.S.</div>
                   <div className="pl-14">B.S. in Computer Science</div>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4 align-top">
+                  <div><strong>Before Transferring</strong> &nbsp;&nbsp; Sep. 2020 – May 2023</div>
+                  <div className="pl-14"><strong>University College Dublin</strong>, Beijing, China.</div>
+                  <div className="pl-14">Internet of Things Engineering</div>
                 </td>
               </tr>
             </tbody>
@@ -544,13 +562,7 @@ const Portfolio = () => {
           </ul>
         </section>
 
-        {/* Academic Services */}
-        <section id="academic-services">
-          <SectionHeading icon={Users} title="Academic Services" />
-          <ul className="list-disc ml-6 space-y-1 text-sm text-gray-700 dark:text-gray-300">
-            {academicServices.map((s, i) => <li key={i}>{s}</li>)}
-          </ul>
-        </section>
+        
 
         {/* Miscellaneous */}
         <section id="miscellaneous">
@@ -582,7 +594,7 @@ const Portfolio = () => {
               <Mail size={16} />
             </IconButton>
           </div>
-          <p className="text-xs">Last updated: April, 2026. &nbsp;© Yuxin Chen</p>
+          <p className="text-xs">Last updated: June, 2026. &nbsp;© Yuxin Chen</p>
         </div>
       </footer>
 
