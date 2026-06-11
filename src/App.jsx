@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   Github, Linkedin, Mail, GraduationCap, Moon, Sun,
   BookOpen, Award, Briefcase, Newspaper, User,
-  FileText, Heart, Users
+  FileText, Heart, Users, PenLine
 } from 'lucide-react';
 
 const SectionHeading = ({ icon: Icon, title }) => (
@@ -254,6 +255,12 @@ const Portfolio = () => {
                   {label}
                 </a>
               ))}
+              <Link
+                to="/blog"
+                className="px-2.5 py-1 text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-[#7a2418] dark:hover:text-red-400 whitespace-nowrap transition-colors"
+              >
+                📖Blog
+              </Link>
             </nav>
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
@@ -364,7 +371,7 @@ const Portfolio = () => {
               <li><strong>Human-AI Interaction & Visualization</strong> —  understanding how humans collaborate with AI and building interactive tools that let users inspect how models work.</li>
             </ul>
             <p>
-              I received offers from UT Austin MSCS, UCLA MSCS, GaTech MSCS, UMD MSCS, UNC MSCS, and UIUC MCS. I will be sharing my graduate school application experience and tips here.
+              I received offers from UT Austin MSCS, UCLA MSCS, GaTech MSCS, UMD MSCS, UNC MSCS, and UIUC MCS. I will be sharing my graduate school application experience and tips here later🔥🔥.
             </p>
           </div>  
         </section>
@@ -611,4 +618,58 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+const Blog = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) setIsDarkMode(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="flex items-center justify-between h-11">
+            <nav className="flex items-center gap-1">
+              <Link
+                to="/"
+                className="px-2.5 py-1 text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-[#7a2418] dark:hover:text-red-400 whitespace-nowrap transition-colors"
+              >
+                ← Back to Portfolio
+              </Link>
+            </nav>
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="ml-2 p-1.5 rounded text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-5xl mx-auto px-6 py-20 text-center">
+        <PenLine size={48} className="mx-auto mb-6 text-gray-300 dark:text-gray-600" />
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-3">Blog</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">Coming soon — photos, thoughts, and life in general.</p>
+      </div>
+    </div>
+  );
+};
+
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Portfolio />} />
+    <Route path="/blog" element={<Blog />} />
+  </Routes>
+);
+
+export default App;
