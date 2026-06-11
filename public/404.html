@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Yuxin Chen</title>
+    <script>
+      // GitHub Pages SPA redirect trick.
+      // If the first path segment is a known app route, we're on the user page (base = /),
+      // so keep 0 segments. Otherwise it's a project page (e.g. /PersonalWeb/), keep 1.
+      var appRoutes = ['blog'];
+      var segments = window.location.pathname.split('/').filter(Boolean);
+      var pathSegmentsToKeep = segments.length > 0 && appRoutes.indexOf(segments[0]) < 0 ? 1 : 0;
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
