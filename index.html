@@ -26,8 +26,23 @@
     <!-- Additional SEO -->
     <link rel="canonical" href="https://RichSomeday222.github.io/" />
     <meta name="robots" content="index, follow" />
-    <script type="module" crossorigin src="/assets/index-lPN3S_RJ.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-COIgc2kz.css">
+    <!-- Restore path redirected by 404.html (GitHub Pages SPA routing) -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          });
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded[0] +
+            (decoded[1] ? '?' + decoded[1] : '') +
+            l.hash
+          );
+        }
+      }(window.location));
+    </script>
+    <script type="module" crossorigin src="/assets/index-BsL9aNdj.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BxGA0ss0.css">
   </head>
   <body>
     <div id="root"></div>
