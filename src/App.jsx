@@ -6,6 +6,168 @@ import {
   FileText, Heart, Users, PenLine
 } from 'lucide-react';
 
+/* ── Cheer Widget (shared like counter via Abacus API) ────── */
+const ABACUS_BASE = 'https://abacus.jasoncameron.dev';
+const CHEER_NS = 'richsomeday222-portfolio';
+const CHEER_KEY = 'lisa-su-cheer';
+
+const CheerWidget = () => {
+  const [open, setOpen] = useState(false);
+  const [count, setCount] = useState(null);
+  const [liked, setLiked] = useState(() => localStorage.getItem('lisa-su-cheered') === '1');
+  const [pop, setPop] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    fetch(`${ABACUS_BASE}/get/${CHEER_NS}/${CHEER_KEY}`)
+      .then(res => res.json())
+      .then(data => setCount(typeof data.value === 'number' ? data.value : 0))
+      .catch(() => setCount(null));
+  }, [open]);
+
+  const handleLike = async () => {
+    if (liked) return;
+    setLiked(true);
+    setPop(true);
+    setTimeout(() => setPop(false), 600);
+    localStorage.setItem('lisa-su-cheered', '1');
+    if (count !== null) setCount(count + 1);
+    try {
+      const res = await fetch(`${ABACUS_BASE}/hit/${CHEER_NS}/${CHEER_KEY}`);
+      const data = await res.json();
+      if (typeof data.value === 'number') setCount(data.value);
+    } catch {
+      /* optimistic count already shown */
+    }
+  };
+
+  return (
+    <>
+      <div className="fixed bottom-6 left-6 z-50 group flex items-center gap-2">
+        <button
+          onClick={() => setOpen(true)}
+          title="一个神秘按钮"
+          className="cheer-fab w-12 h-12 rounded-full bg-gradient-to-br from-violet-400 via-fuchsia-400 to-pink-400 flex items-center justify-center text-2xl hover:scale-125 transition-transform"
+        >
+          🔮
+        </button>
+        <span className="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-fuchsia-200 dark:border-fuchsia-800 shadow-md text-xs font-semibold text-fuchsia-600 dark:text-fuchsia-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap">
+        Mysterious energy. Click it ✨
+        </span>
+      </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-sm w-full p-8 text-center relative"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-3 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              ✕
+            </button>
+
+            <div className="text-5xl mb-3">👸🏻</div>
+            <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-gray-100">
+              Click to help me become the next Lisa Su.
+            </h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-6">
+              Manifesting as Female CEO 💅
+            </p>
+
+            <button
+              onClick={handleLike}
+              disabled={liked}
+              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm transition-all
+                ${liked
+                  ? 'bg-pink-100 dark:bg-pink-900/40 text-pink-600 dark:text-pink-300 cursor-default'
+                  : 'bg-[#7a2418] text-white hover:bg-[#5e1b12] hover:scale-105 active:scale-95'}
+                ${pop ? 'scale-125' : ''}`}
+            >
+              <Heart size={16} fill={liked ? 'currentColor' : 'none'} />
+              {liked ? 'Support provided!' : 'Support +1'}
+            </button>
+
+            <div className="mt-5 text-sm text-gray-600 dark:text-gray-300">
+              {count === null
+                ? '...'
+                : <> <span className="font-bold text-[#7a2418] dark:text-red-400">{count}</span> people support</>}
+            </div>
+            {liked && (
+              <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
+                Thank you! See you at the "NEXT AMD" shareholders' meeting.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+/* ── Cat Widget (the world's cutest cat) ──────────────────── */
+const CatWidget = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <div className="fixed top-16 right-6 z-50 group flex items-center gap-2">
+        <span className="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-amber-200 dark:border-amber-700 shadow-md text-xs font-semibold text-amber-600 dark:text-amber-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap">
+          Click to see the world's cutest cat 🐾
+        </span>
+        <button
+          onClick={() => setOpen(true)}
+          title="A mysterious cat button"
+          className="cat-fab w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-orange-300 to-rose-300 flex items-center justify-center text-2xl hover:scale-125 transition-transform"
+        >
+          🐱
+        </button>
+      </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="polaroid-card relative bg-white p-4 pb-5 shadow-2xl max-w-xs w-full"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gray-900 text-white text-sm shadow-lg hover:scale-110 transition-transform"
+            >
+              ✕
+            </button>
+
+            <img
+              src={`${import.meta.env.BASE_URL}cutest-cat.png`}
+              alt="The world's cutest cat"
+              className="w-full max-h-[60vh] object-cover"
+            />
+
+            <div className="cute-stamp absolute top-7 right-7 px-2.5 py-1 border-2 border-red-500 text-red-500 text-[11px] font-extrabold uppercase tracking-widest rounded bg-white/70">
+              Certified 100% Cute
+            </div>
+
+            <p className="mt-4 text-center text-gray-700 text-sm" style={{ fontFamily: "'Comic Sans MS', 'Marker Felt', cursive" }}>
+              The World's Cutest Cat 🐾 May Zhang (my friend Candice's cat)
+            </p>
+            <p className="text-center text-gray-400 text-[11px] mt-0.5">
+              (peer-reviewed, results irreproducible elsewhere)
+            </p>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
 const SectionHeading = ({ icon: Icon, title }) => (
   <h2 className="text-lg font-bold border-b border-gray-200 dark:border-gray-700 pb-2 mb-5 flex items-center gap-2"
     style={{ color: '#7a2418' }}>
@@ -614,6 +776,9 @@ const Portfolio = () => {
           Top
         </button>
       )}
+
+      <CheerWidget />
+      <CatWidget />
     </div>
   );
 };
