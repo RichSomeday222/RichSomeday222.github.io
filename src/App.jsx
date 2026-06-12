@@ -43,13 +43,18 @@ const CheerWidget = () => {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        title="一个神秘按钮"
-        className="fixed bottom-6 left-6 w-11 h-11 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg flex items-center justify-center text-xl hover:scale-110 hover:-rotate-12 transition-transform"
-      >
-        🔮
-      </button>
+      <div className="fixed bottom-6 left-6 z-50 group flex items-center gap-2">
+        <button
+          onClick={() => setOpen(true)}
+          title="一个神秘按钮"
+          className="cheer-fab w-12 h-12 rounded-full bg-gradient-to-br from-violet-400 via-fuchsia-400 to-pink-400 flex items-center justify-center text-2xl hover:scale-125 transition-transform"
+        >
+          🔮
+        </button>
+        <span className="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-fuchsia-200 dark:border-fuchsia-800 shadow-md text-xs font-semibold text-fuchsia-600 dark:text-fuchsia-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap">
+        Mysterious energy. Click it ✨
+        </span>
+      </div>
 
       {open && (
         <div
@@ -95,9 +100,67 @@ const CheerWidget = () => {
             </div>
             {liked && (
               <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-                Thank you! See you at the next AMD shareholders' meeting.
+                Thank you! See you at the "NEXT AMD" shareholders' meeting.
               </p>
             )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+/* ── Cat Widget (the world's cutest cat) ──────────────────── */
+const CatWidget = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <div className="fixed top-16 right-6 z-50 group flex items-center gap-2">
+        <span className="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-amber-200 dark:border-amber-700 shadow-md text-xs font-semibold text-amber-600 dark:text-amber-300 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap">
+          Click to see the world's cutest cat 🐾
+        </span>
+        <button
+          onClick={() => setOpen(true)}
+          title="A mysterious cat button"
+          className="cat-fab w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-orange-300 to-rose-300 flex items-center justify-center text-2xl hover:scale-125 transition-transform"
+        >
+          🐱
+        </button>
+      </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="polaroid-card relative bg-white p-4 pb-5 shadow-2xl max-w-xs w-full"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gray-900 text-white text-sm shadow-lg hover:scale-110 transition-transform"
+            >
+              ✕
+            </button>
+
+            <img
+              src={`${import.meta.env.BASE_URL}cutest-cat.png`}
+              alt="The world's cutest cat"
+              className="w-full max-h-[60vh] object-cover"
+            />
+
+            <div className="cute-stamp absolute top-7 right-7 px-2.5 py-1 border-2 border-red-500 text-red-500 text-[11px] font-extrabold uppercase tracking-widest rounded bg-white/70">
+              Certified 100% Cute
+            </div>
+
+            <p className="mt-4 text-center text-gray-700 text-sm" style={{ fontFamily: "'Comic Sans MS', 'Marker Felt', cursive" }}>
+              The World's Cutest Cat 🐾 May Zhang (my friend Candice's cat)
+            </p>
+            <p className="text-center text-gray-400 text-[11px] mt-0.5">
+              (peer-reviewed, results irreproducible elsewhere)
+            </p>
           </div>
         </div>
       )}
@@ -715,6 +778,7 @@ const Portfolio = () => {
       )}
 
       <CheerWidget />
+      <CatWidget />
     </div>
   );
 };
